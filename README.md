@@ -1,4 +1,4 @@
-zen-wallpaper
+random-facts-wallpaper
 =============
 
 Automatically generated, random fact wallpaper.
@@ -28,3 +28,6 @@ Now, set the wallpaper as your desktop background.
 When you want a new random fact, simply re-run the script with the same arguments. The script will overwrite the 
 original `random-facts-wallpaper.png` file, and Ubuntu will detect the change and automatically show the new wallpaper.
 
+---
+
+Many thanks to [Taeram](https://github.com/taeram/) for writing the script.
