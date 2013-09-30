@@ -1,12 +1,19 @@
 #!/bin/bash
 
 BACKGROUND_COLOR="black"
-FONT_PATH=$HOME/.fonts/Inconsolata.otf
-FONT_SIZE=70
-FONT_URL="http://www.levien.com/type/myfonts/Inconsolata.otf"
+TEXT_COLOR="white"
+FONT_PATH=$HOME/.fonts/random-fact-wallpaper.otf
+FONT_SIZE=60
+FONT_URL="https://copy.com/oOvnMBqTxYwh/Please%20write%20me%20a%20song.ttf?download=1"
 WALLPAPER_SIZE="1920x1080"
 WALLPAPER_PATH=$1
-GITHUB_OAUTH_TOKEN_PATH=$HOME/.zen-wallpaper-oauth.token
+GITHUB_OAUTH_TOKEN_PATH=$HOME/.random-fact-wallpaper-oauth.token
+
+# Oh yeah, you need PHP
+# Here's the script to make sure you have PHP:
+# DO YOU HAVE PHP?
+# YES > GOOD
+# NO > SHIT
 
 # Make sure we have a valid wallpaper path
 if [ ! -e "$WALLPAPER_PATH" ]; then
@@ -36,7 +43,7 @@ if [ ! -e "$GITHUB_OAUTH_TOKEN_PATH" ]; then
 
     echo "Requesting a GitHub OAuth token"
     RESPONSE_FILE=`mktemp --suffix=.json`
-    curl --silent -u "$GITHUB_USERNAME" -d '{"note": "Zen Wallpaper Script"}' https://api.github.com/authorizations > $RESPONSE_FILE
+    curl --silent -u "$GITHUB_USERNAME" -d '{"note": "Random Fact Wallpaper Script"}' https://api.github.com/authorizations > $RESPONSE_FILE
 
     GITHUB_OAUTH_TOKEN=`cat $RESPONSE_FILE | grep token | awk '{print $2'} | sed -e 's/"//g' -e 's/,//g'`
     if [ -z "$GITHUB_OAUTH_TOKEN" ]; then
@@ -51,14 +58,15 @@ else
     GITHUB_OAUTH_TOKEN=`cat $GITHUB_OAUTH_TOKEN_PATH`
 fi
 
-# Get the text from Github's Zen API
-ZEN_TEXT=`curl --silent https://api.github.com/zen | sed -e "s/'/\\\\\\\\'/g"`
+# Get a random fact
+RANDOM_FACT=`php randomFacts.php`
 
 # Create the wallpaper
 convert \
-    -size "$WALLPAPER_SIZE" \
-    xc:$BACKGROUND_COLOR \
-    -font "$FONT_PATH" \
-    -pointsize $FONT_SIZE \
-    -draw "gravity center fill white text 0,0 '$ZEN_TEXT'" \
-    $WALLPAPER_PATH/zen-wallpaper.png
+    -background $BACKGROUND_COLOR \
+    -fill $TEXT_COLOR \
+    -size $WALLPAPER_SIZE \
+    -font $FONT_PATH \
+    -gravity Center \
+    -pointsize $FONT_SIZE caption:"$RANDOM_FACT" \
+    $WALLPAPER_PATH/random-wallpaper.png
