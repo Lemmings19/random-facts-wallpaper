@@ -9,6 +9,8 @@ Requirements
 ============
 
 * A [GitHub](https://github.com/) account
+* PHP.
+* Linux, or possibly OSX.
 
 ### First Time Setup
 
@@ -17,7 +19,7 @@ Simply run the script, and it will install all necessary dependencies, and gener
 The script requires a single argument, which is the path that the auto generated wallpaper will be saved to.
 
 ```bash
-./random-facts-wallpaper $HOME/Pictures
+./random-facts-wallpaper.sh $HOME/Pictures
 ```
 
 Once the script has been run for the first time, you'll find a `random-facts-wallpaper.png` file in your `$HOME/Pictures` directory,
